@@ -1,127 +1,167 @@
 /* ============================================================
    BIRTHDAY WEBSITE — script.js
-   26th Birthday Edition
+   26th Birthday Edition - Premium Ethereal Theme
 ============================================================ */
 
-// ─── Typed name effect ───────────────────────────────────────
-const nameEl = document.getElementById('nameReveal');
-const nameText = '✨ Happy Birthday ✨';
-let ni = 0;
-function typeName() {
-  if (ni <= nameText.length) {
-    nameEl.textContent = nameText.slice(0, ni);
-    ni++;
-    setTimeout(typeName, 80);
-  }
-}
-setTimeout(typeName, 1200);
+// ─── Scroll Progress & Reveal ────────────────────────────────
+const progressBar = document.getElementById('progressBar');
+const revealElements = document.querySelectorAll('.reveal-up');
 
-// ─── Falling petals (canvas) ─────────────────────────────────
-const canvas = document.getElementById('petals');
-const ctx    = canvas.getContext('2d');
+window.addEventListener('scroll', () => {
+  // Progress Bar
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  progressBar.style.width = scrolled + '%';
+});
+
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+revealElements.forEach(el => observer.observe(el));
+
+// ─── Falling Particles (Ambient) ─────────────────────────────
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particlesArray = [];
 
 function resizeCanvas() {
-  canvas.width  = window.innerWidth;
+  canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
-resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-const PETAL_EMOJIS = ['🌸', '🌺', '🌹', '💮', '🌷', '✿'];
-const petals = [];
-
-function createPetal() {
-  return {
-    x:     Math.random() * canvas.width,
-    y:     -30,
-    size:  Math.random() * 18 + 10,
-    speed: Math.random() * 1.5 + 0.5,
-    drift: (Math.random() - 0.5) * 1.2,
-    rot:   Math.random() * 360,
-    rotSpeed: (Math.random() - 0.5) * 3,
-    emoji: PETAL_EMOJIS[Math.floor(Math.random() * PETAL_EMOJIS.length)],
-    opacity: Math.random() * 0.5 + 0.4,
-  };
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedY = Math.random() * 0.5 + 0.1;
+    this.speedX = (Math.random() - 0.5) * 0.5;
+    this.opacity = Math.random() * 0.5 + 0.1;
+  }
+  update() {
+    this.y -= this.speedY; // float upwards
+    this.x += this.speedX;
+    if (this.y < 0) {
+      this.y = canvas.height;
+      this.x = Math.random() * canvas.width;
+    }
+  }
+  draw() {
+    ctx.fillStyle = `rgba(212, 168, 67, ${this.opacity})`; // Gold particles
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
 
-// Spawn petals gradually
-setInterval(() => {
-  if (petals.length < 40) petals.push(createPetal());
-}, 300);
+function initParticles() {
+  particlesArray = [];
+  for (let i = 0; i < 100; i++) {
+    particlesArray.push(new Particle());
+  }
+}
 
-function animatePetals() {
+function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = petals.length - 1; i >= 0; i--) {
-    const p = petals[i];
-    ctx.save();
-    ctx.globalAlpha = p.opacity;
-    ctx.translate(p.x, p.y);
-    ctx.rotate((p.rot * Math.PI) / 180);
-    ctx.font = `${p.size}px serif`;
-    ctx.fillText(p.emoji, -p.size / 2, p.size / 2);
-    ctx.restore();
-
-    p.y   += p.speed;
-    p.x   += p.drift;
-    p.rot += p.rotSpeed;
-
-    if (p.y > canvas.height + 40) {
-      petals.splice(i, 1);
-    }
+  for (let i = 0; i < particlesArray.length; i++) {
+    particlesArray[i].update();
+    particlesArray[i].draw();
   }
-  requestAnimationFrame(animatePetals);
+  requestAnimationFrame(animateParticles);
 }
-animatePetals();
+initParticles();
+animateParticles();
 
-// ─── Candles ─────────────────────────────────────────────────
-const candlesRow = document.getElementById('candlesRow');
-const NUM_CANDLES = 6;
-let candlesLit = true;
+// ─── Massive Parallax Gallery ────────────────────────────────
+const parallaxContainer = document.getElementById('parallaxContainer');
+const imagesFolder = 'images/';
+// Array of a rich selection of images from the directory
+const allImages = [
+  "0189f8b6-e8c2-426a-80d6-2ebadad5730c.JPG", "08a17a9c-5b56-4020-bdd1-91a900808f08.JPG",
+  "21844c1f-8249-474a-aff2-ed28e1006ace.JPG", "274aa410-92af-4b5e-86ca-297ac790cb9e.JPG",
+  "2ce97c33-71bd-4bfc-ac77-f754c75f78aa.JPG", "399d8af8-f766-4b6f-b82d-54fb90b6a71c.JPG",
+  "413d4bcf-103f-43cf-bdcb-f280f144db78.JPG", "436bd4a9-7eed-43a1-8e6f-cf742794d62c.JPG",
+  "4a77b92d-951a-4eb2-b593-b6aac7ef9a92.JPG", "4b161adc-d94c-4ce6-b1d1-45d4c586b730.JPG",
+  "4cc15f9b-30f8-4dac-acaf-a9e24ad1d752.JPG", "537efc20-1255-44d8-bd03-ddebe1171e1b.JPG",
+  "6350c719-4730-469f-86eb-6c115ea39f82.JPG", "64b24dba-359b-4bc5-92a9-1aaa6014d9b3.JPG",
+  "66431683-f6c3-46dc-8cb9-df22d0aad66f.JPG", "6f332d2e-9883-473d-8911-15c1aa47a0ae.JPG",
+  "71aaf7d9-4d1d-4fbd-a062-ba80988734ec.JPG", "7d7ef225-7949-4847-b5cf-3c37b555cf1c.JPG",
+  "80bc8888-c50b-4605-a28a-63159c6dd5f1.JPG", "8817e605-7040-4d61-9725-62b791b42c97.JPG",
+  "96204cb8-d0f4-4178-a011-9f3475ce9c00.JPG", "9f36900a-6f40-4e15-8846-115985f8cb50.JPG",
+  "F6BACE20-E545-4A7D-A121-CF02DB186255.JPG", "IMG_0136.HEIC", "IMG_0586.HEIC",
+  "IMG_0587.HEIC", "IMG_0743.HEIC", "IMG_0780.PNG", "IMG_0903.PNG",
+  "IMG_0965.HEIC", "IMG_0966.HEIC", "IMG_0968.HEIC", "IMG_0972.HEIC",
+  "IMG_0973.HEIC", "IMG_0976.HEIC", "IMG_0978.HEIC", "IMG_1311.HEIC",
+  "IMG_1312.HEIC", "IMG_1599.HEIC", "IMG_1600.HEIC", "IMG_1752.HEIC",
+  "IMG_1775.PNG", "IMG_1777.PNG", "IMG_1825.HEIC", "IMG_1856.PNG",
+  "IMG_1869.PNG", "IMG_1900.HEIC", "IMG_1926.HEIC", "IMG_1954.PNG",
+  "IMG_1960.PNG", "IMG_1961.PNG", "IMG_1962.PNG", "IMG_2024.PNG",
+  "IMG_2051.HEIC", "IMG_2053.HEIC", "IMG_2054.HEIC", "IMG_2132.HEIC",
+  "IMG_2134.HEIC", "IMG_2226.HEIC", "IMG_2300.HEIC", "IMG_3002.HEIC",
+  "IMG_3017.HEIC", "IMG_3287.PNG", "IMG_3381.HEIC", "IMG_3382.HEIC",
+  "IMG_3486.HEIC", "IMG_3487.HEIC", "IMG_3489.HEIC", "IMG_3493.HEIC",
+  "IMG_3517.HEIC", "IMG_3537.heic", "Screenshot 2024-10-16 at 12.03.07 AM.PNG",
+  "Screenshot 2024-10-24 at 11.27.50 PM.PNG", "Screenshot 2024-10-25 at 1.11.33 AM.PNG",
+  "aa7406b0-b49c-48e9-807e-e975f7e90d2d.JPG", "b2e11f42-f757-4a69-83bf-108d08be10aa.JPG",
+  "be00fc6b-f633-47f0-b3b7-38463199ac4c.JPG", "c81564ea-c0f0-402b-95cd-2ce5a6a2249d.JPG",
+  "da93167e-1a68-4847-970f-f87c5f38a212.JPG", "e32e1a77-2ac9-431b-87dd-2310f6a235ca.JPG",
+  "e3d6ed9b-8f88-438a-a510-1f98678d21c5.JPG", "ede10bac-34bf-4e2b-b59e-744cace260ce.JPG"
+];
 
-for (let i = 0; i < NUM_CANDLES; i++) {
-  const div = document.createElement('div');
-  div.className = 'candle';
-  div.innerHTML = `
-    <div class="candle-flame" id="flame-${i}"></div>
-    <div class="candle-body"></div>
-  `;
-  candlesRow.appendChild(div);
-}
+// Shuffle images for a dynamic feel
+allImages.sort(() => Math.random() - 0.5);
 
-const blowBtn  = document.getElementById('blowBtn');
-const wishText = document.getElementById('wishMessage');
+if (parallaxContainer) {
+  allImages.forEach((imgSrc, i) => {
+    // Determine random positions and sizes
+    const size = Math.random() * 15 + 15; // 15vw to 30vw
+    const top = Math.random() * 90; // 0% to 90% top of the massive container
+    const left = Math.random() * 80; // 0% to 80% left
+    const speed = Math.random() * 0.5 + 0.1; // Parallax speed multiplier
+    
+    const div = document.createElement('div');
+    div.className = 'parallax-item';
+    div.style.width = `${size}vw`;
+    div.style.height = `${size * 1.2}vw`; // slightly taller than wide
+    div.style.top = `${top}%`;
+    div.style.left = `${left}%`;
+    div.dataset.speed = speed;
+    
+    const img = document.createElement('img');
+    img.src = `${imagesFolder}${imgSrc}`;
+    img.loading = 'lazy';
+    
+    div.appendChild(img);
+    parallaxContainer.appendChild(div);
+  });
 
-blowBtn.addEventListener('click', () => {
-  if (!candlesLit) {
-    // Relight
-    for (let i = 0; i < NUM_CANDLES; i++) {
-      const flame = document.getElementById(`flame-${i}`);
-      flame.style.opacity = '1';
+  // Parallax Scroll Effect
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const containerTop = parallaxContainer.offsetTop;
+    const containerHeight = parallaxContainer.offsetHeight;
+    
+    // Only animate if in view
+    if (scrollY + window.innerHeight > containerTop && scrollY < containerTop + containerHeight) {
+      const items = document.querySelectorAll('.parallax-item');
+      items.forEach(item => {
+        const speed = parseFloat(item.dataset.speed);
+        // Move opposite to scroll direction
+        const yPos = -(scrollY * speed);
+        item.style.transform = `translate3d(0, ${yPos}px, 0)`;
+      });
     }
-    candlesLit = true;
-    blowBtn.textContent = '🎂 Blow the candles!';
-    wishText.textContent = '';
-    wishText.classList.remove('show');
-    return;
-  }
-
-  // Blow out one by one
-  for (let i = 0; i < NUM_CANDLES; i++) {
-    setTimeout(() => {
-      const flame = document.getElementById(`flame-${i}`);
-      flame.style.opacity = '0';
-      if (i === NUM_CANDLES - 1) {
-        setTimeout(() => {
-          wishText.textContent = '🌟 Your wish has been sent to the universe! 🌟';
-          wishText.classList.add('show');
-          blowBtn.textContent = '🕯️ Relight candles';
-          candlesLit = false;
-          launchConfetti(document.getElementById('confettiContainer'));
-        }, 400);
-      }
-    }, i * 180);
-  }
-});
+  });
+}
 
 // ─── 26 Reasons ──────────────────────────────────────────────
 const reasons = [
@@ -150,175 +190,142 @@ const reasons = [
   "Your presence in a room changes the energy.",
   "You dream big and that's never something to apologize for.",
   "You deserve every good thing coming your way.",
-  "The world is genuinely better because you're in it.",
+  "The world is genuinely better because you're in it."
 ];
 
-const grid = document.getElementById('reasonsGrid');
-reasons.forEach((r, i) => {
-  const card = document.createElement('div');
-  card.className = 'reason-card';
-  card.innerHTML = `<span class="reason-num">${String(i + 1).padStart(2, '0')}</span><span class="reason-text">${r}</span>`;
-  grid.appendChild(card);
-});
+const reasonsList = document.getElementById('reasonsList');
+if (reasonsList) {
+  reasons.forEach((r, i) => {
+    const card = document.createElement('div');
+    card.className = 'r-card glass-card reveal-up';
+    card.style.setProperty('--d', `${(i % 5) * 0.1}s`);
+    card.innerHTML = `<span class="r-num">${String(i + 1).padStart(2, '0')}</span><span class="r-text">${r}</span>`;
+    reasonsList.appendChild(card);
+    observer.observe(card);
+  });
+}
 
-// ─── Intersection Observer for scroll animations ──────────────
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+// ─── Memories Carousel ───────────────────────────────────────
+const memTrack = document.getElementById('memTrack');
+const memPrev = document.getElementById('memPrev');
+const memNext = document.getElementById('memNext');
+
+if (memTrack && memPrev && memNext) {
+  memPrev.addEventListener('click', () => {
+    memTrack.scrollBy({ left: -350, behavior: 'smooth' });
+  });
+  memNext.addEventListener('click', () => {
+    memTrack.scrollBy({ left: 350, behavior: 'smooth' });
+  });
+}
+
+// ─── Candles & Cake ──────────────────────────────────────────
+const cakeFlames = document.getElementById('cakeFlames');
+const NUM_CANDLES = 6;
+let candlesLit = true;
+
+if (cakeFlames) {
+  for (let i = 0; i < NUM_CANDLES; i++) {
+    const div = document.createElement('div');
+    div.className = 'candle';
+    div.innerHTML = `<div class="flame" id="flame-${i}"></div>`;
+    cakeFlames.appendChild(div);
+  }
+}
+
+const blowBtn = document.getElementById('blowBtn');
+const wishText = document.getElementById('wishText');
+
+if (blowBtn) {
+  blowBtn.addEventListener('click', () => {
+    if (!candlesLit) {
+      // Relight
+      for (let i = 0; i < NUM_CANDLES; i++) {
+        document.getElementById(`flame-${i}`).style.opacity = '1';
+      }
+      candlesLit = true;
+      blowBtn.textContent = '🎂 Blow the Candles';
+      wishText.classList.remove('show');
+      return;
+    }
+
+    // Blow out one by one
+    for (let i = 0; i < NUM_CANDLES; i++) {
+      setTimeout(() => {
+        document.getElementById(`flame-${i}`).style.opacity = '0';
+        if (i === NUM_CANDLES - 1) {
+          setTimeout(() => {
+            wishText.textContent = '🌟 Your wish has been sent to the universe 🌟';
+            wishText.classList.add('show');
+            blowBtn.textContent = '🕯️ Relight Candles';
+            candlesLit = false;
+          }, 400);
+        }
+      }, i * 150);
     }
   });
-}, { threshold: 0.12 });
+}
 
-document.querySelectorAll('.reason-card, .memory-card').forEach(el => observer.observe(el));
-
-// ─── Confetti burst ───────────────────────────────────────────
-function launchConfetti(container) {
-  const colors = ['#f7a8c4', '#e8729a', '#d4a843', '#f5d98b', '#c0395e', '#fff', '#ffd6e8'];
-  for (let i = 0; i < 80; i++) {
+// ─── Confetti ────────────────────────────────────────────────
+function launchConfetti() {
+  const container = document.getElementById('confettiZone');
+  if (!container) return;
+  const colors = ['#d4a843', '#fbe6a8', '#b83359', '#f9b4cc', '#ffffff'];
+  
+  for (let i = 0; i < 100; i++) {
     const piece = document.createElement('div');
-    const size  = Math.random() * 10 + 5;
+    const size = Math.random() * 10 + 5;
     piece.style.cssText = `
       position: absolute;
       width: ${size}px;
       height: ${size}px;
       background: ${colors[Math.floor(Math.random() * colors.length)]};
       border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-      left: ${Math.random() * 100}%;
-      top: ${Math.random() * 40}%;
-      animation: confettiFall ${Math.random() * 2 + 1.5}s ease forwards;
-      animation-delay: ${Math.random() * 0.5}s;
-      opacity: 0.9;
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      animation: explode ${Math.random() * 1 + 1}s ease-out forwards;
+      animation-delay: ${Math.random() * 0.2}s;
     `;
+    
+    // Custom animation injected
+    const x = (Math.random() - 0.5) * window.innerWidth;
+    const y = -(Math.random() * window.innerHeight);
+    const rot = Math.random() * 720;
+    
+    piece.animate([
+      { transform: 'translate(-50%, -50%) rotate(0deg)', opacity: 1 },
+      { transform: `translate(${x}px, ${y}px) rotate(${rot}deg)`, opacity: 0 }
+    ], {
+      duration: Math.random() * 1000 + 1500,
+      easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)',
+      fill: 'forwards',
+      delay: Math.random() * 200
+    });
+    
     container.appendChild(piece);
-    setTimeout(() => piece.remove(), 4000);
+    setTimeout(() => piece.remove(), 3000);
   }
 }
 
-// ─── Celebrate button ─────────────────────────────────────────
-const celebrateBtn  = document.getElementById('celebrateBtn');
-const confettiBurst = document.getElementById('confettiContainer');
+const celebrateBtn = document.getElementById('celebrateBtn');
+if (celebrateBtn) {
+  celebrateBtn.addEventListener('click', () => {
+    launchConfetti();
+  });
+}
 
-celebrateBtn.addEventListener('click', () => {
-  launchConfetti(confettiBurst);
-  celebrateBtn.textContent = '🎊 Again!';
-  // Burst petals
-  for (let i = 0; i < 15; i++) {
-    petals.push(createPetal());
-  }
-});
-
-// ─── Music (Web Audio API — gentle ambient tone) ──────────────
-const musicBtn = document.getElementById('musicToggle');
-let audioCtx   = null;
+// ─── Web Audio API (Ethereal Ambient Music) ──────────────────
+const musicBtn = document.getElementById('musicBtn');
+let audioCtx = null;
 let musicNodes = [];
 let musicPlaying = false;
 
 function startMusic() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-  // Simple gentle chord: C major arpeggio
-  const notes = [261.63, 329.63, 392.00, 523.25]; // C4 E4 G4 C5
-  musicNodes = notes.map((freq, i) => {
-    const osc  = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.frequency.value = freq;
-    gain.gain.value = 0;
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start();
-
-    // Gentle fade in with stagger
-    gain.gain.setTargetAtTime(0.04, audioCtx.currentTime + i * 0.3, 0.5);
-    return { osc, gain };
-  });
-  musicPlaying = true;
-  musicBtn.classList.add('playing');
-  musicBtn.title = 'Pause music';
-}
-
-function stopMusic() {
-  musicNodes.forEach(({ gain }) => {
-    gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.3);
-  });
-  setTimeout(() => {
-    musicNodes.forEach(({ osc }) => { try { osc.stop(); } catch(e){} });
-    musicNodes = [];
-  }, 800);
-  musicPlaying = false;
-  musicBtn.classList.remove('playing');
-  musicBtn.title = 'Play music';
-}
-
-musicBtn.addEventListener('click', () => {
-  if (musicPlaying) {
-    stopMusic();
-  } else {
-    startMusic();
-  }
-});
-
-// ─── Staggered reason card reveal ────────────────────────────
-// Add transition delays to reason cards
-document.querySelectorAll('.reason-card').forEach((card, i) => {
-  card.style.transitionDelay = `${(i % 6) * 0.07}s`;
-});
-
-
-// ─── Photo Gallery Dynamic Load ──────────────────────────────
-const galleryPhotos = [
-  'images/0189f8b6-e8c2-426a-80d6-2ebadad5730c.JPG',
-  'images/21844c1f-8249-474a-aff2-ed28e1006ace.JPG',
-  'images/4cc15f9b-30f8-4dac-acaf-a9e24ad1d752.JPG',
-  'images/IMG_0780.PNG',
-  'images/IMG_1869.PNG',
-  'images/IMG_1954.PNG',
-  'images/IMG_3287.PNG',
-  'images/IMG_2024.PNG',
-  'images/IMG_1960.PNG',
-  'images/IMG_1775.PNG'
-];
-
-const galleryContainer = document.getElementById('photoGallery');
-if (galleryContainer) {
-  galleryPhotos.forEach((src, i) => {
-    const imgWrapper = document.createElement('div');
-    imgWrapper.className = 'gallery-item fade-in-up';
-    imgWrapper.style.setProperty('--delay', `${(i % 4) * 0.15}s`);
-    
-    const img = document.createElement('img');
-    img.src = src;
-    img.loading = 'lazy';
-    img.alt = 'Memory';
-    
-    imgWrapper.appendChild(img);
-    galleryContainer.appendChild(imgWrapper);
-    observer.observe(imgWrapper);
-  });
-}
-
-// ─── Carousel Controls ─────────────────────────────────────────
-const carousel = document.getElementById('memoriesCarousel');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-
-if (carousel && prevBtn && nextBtn) {
-  prevBtn.addEventListener('click', () => {
-    carousel.scrollBy({ left: -350, behavior: 'smooth' });
-  });
-  nextBtn.addEventListener('click', () => {
-    carousel.scrollBy({ left: 350, behavior: 'smooth' });
-  });
-}
-
-// ─── Music Update (Softer Music Box Tone) ──────────────────────
-// Replace startMusic with a more emotional progression
-function startMusic() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   
-  // A gentle, emotional chord progression arpeggio
-  // Notes: Fmaj9 -> Cmaj9 -> G6 -> Am11
+  // A gentle, emotional chord progression arpeggio fitting the dark ethereal theme
   const sequence = [
     349.23, 440.00, 523.25, 659.25, // F A C E
     261.63, 329.63, 392.00, 587.33, // C E G D
@@ -336,32 +343,50 @@ function startMusic() {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     
-    osc.type = 'sine'; // soft sine
+    // Sine wave for soft, pure, ethereal tone
+    osc.type = 'sine';
     osc.frequency.value = freq;
     
+    // Add a bit of reverb illusion by extending release
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     
-    // Attack / Decay
-    gain.gain.setValueAtTime(0, audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.1);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+    const now = audioCtx.currentTime;
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.08, now + 0.2); // softer attack
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5); // long release
     
-    osc.start(audioCtx.currentTime);
-    osc.stop(audioCtx.currentTime + 1.6);
+    osc.start(now);
+    osc.stop(now + 2.6);
     
     musicNodes.push({ osc, gain });
+    if (musicNodes.length > 20) musicNodes.shift();
     
-    // Clean up old nodes
-    if (musicNodes.length > 20) {
-      musicNodes.shift();
-    }
-    
-    setTimeout(playNote, 400); // 400ms per note
+    setTimeout(playNote, 600); // Slower, more deliberate pacing
   }
   
   musicPlaying = true;
   musicBtn.classList.add('playing');
   musicBtn.title = 'Pause music';
   playNote();
+}
+
+function stopMusic() {
+  musicNodes.forEach(({ gain }) => {
+    gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
+  });
+  setTimeout(() => {
+    musicNodes.forEach(({ osc }) => { try { osc.stop(); } catch(e){} });
+    musicNodes = [];
+  }, 1000);
+  musicPlaying = false;
+  musicBtn.classList.remove('playing');
+  musicBtn.title = 'Play music';
+}
+
+if (musicBtn) {
+  musicBtn.addEventListener('click', () => {
+    if (musicPlaying) stopMusic();
+    else startMusic();
+  });
 }
