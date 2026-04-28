@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 26th Birthday Vedika 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@400;600;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Petals canvas -->
+  <canvas id="petals"></canvas>
+
+  <!-- Progress indicator -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ===== SECTION 1: OPENING ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="opening-animation" id="openingAnim">
+        <div class="heart-beat">❤️</div>
+        <p class="tap-message">Tap the heart to begin</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2: TITLE REVEAL ===== -->
+  <section class="title-reveal hidden" id="titleReveal">
+    <div class="container-center">
+      <p class="subtitle">April 28, 2026</p>
+      <h1 class="main-title">
+        Happy<br/>
+        <span class="gold-text">26th</span><br/>
+        Birthday
+      </h1>
+      <p class="name-reveal" id="nameReveal">Vedika Mishra</p>
+      <div class="scroll-indicator">
+        <span>Scroll to continue</span>
+        <div class="scroll-arrow">↓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: OPENING LETTER ===== -->
+  <section class="section letter-section">
+    <div class="container">
+      <div class="letter-card fade-in-up">
+        <div class="letter-header">
+          <span class="letter-date">A letter for you</span>
+          <div class="letter-icon">💌</div>
+        </div>
+        <p class="letter-greeting">Dear Vedika,</p>
+        <p class="letter-text">
+          Twenty-six years ago, something magical happened. The universe decided it needed more light, more laughter, more kindness — and so it brought you into this world.
+        </p>
+        <p class="letter-text">
+          I know we haven't been on the best terms lately. I know there have been words left unsaid, feelings left unresolved, and moments that didn't go the way either of us wanted. But today isn't about any of that.
+        </p>
+        <p class="letter-text">
+          Today is about celebrating <em>you</em> — the person you are, the person you've become, and the person you're still becoming.
+        </p>
+        <p class="letter-text highlight-text">
+          I'm sorry for the times I hurt you. I'm sorry for the moments I wasn't there when I should have been. And I hope, somewhere in that beautiful heart of yours, there's room for forgiveness — not just for me, but for your own peace.
+        </p>
+        <p class="letter-text">
+          Because you deserve to smile today. Fully, freely, without any weight on your shoulders.
+        </p>
+        <p class="letter-signature">With all the love and sincerity,<br/><em>Someone who still cares</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4: WHO YOU ARE ===== -->
+  <section class="section about-section">
+    <div class="container">
+      <h2 class="section-title fade-in-up">Who You Are</h2>
+      <p class="section-subtitle fade-in-up">The things that make you extraordinary</p>
+      
+      <div class="qualities-grid">
+        <div class="quality-card fade-in-up" style="--delay: 0s">
+          <div class="quality-icon">✨</div>
+          <h3>Resilient</h3>
+          <p>You've faced storms that would have broken most people. But you didn't break. You bent, you learned, and you grew stronger.</p>
+        </div>
+        <div class="quality-card fade-in-up" style="--delay: 0.1s">
+          <div class="quality-icon">💫</div>
+          <h3>Ambitious</h3>
+          <p>Your dreams aren't small, and they shouldn't be. You chase what you want with a fire that's genuinely inspiring.</p>
+        </div>
+        <div class="quality-card fade-in-up" style="--delay: 0.2s">
+          <div class="quality-icon">🌸</div>
+          <h3>Kind</h3>
+          <p>Even when you're trying to hide it, your kindness shows. You care about people more deeply than you let on.</p>
+        </div>
+        <div class="quality-card fade-in-up" style="--delay: 0.3s">
+          <div class="quality-icon">🎭</div>
+          <h3>Authentic</h3>
+          <p>You don't pretend to be someone you're not. Your honesty, even when it's uncomfortable, is a rare gift.</p>
+        </div>
+        <div class="quality-card fade-in-up" style="--delay: 0.4s">
+          <div class="quality-icon">😂</div>
+          <h3>Funny</h3>
+          <p>Your sense of humor catches people off guard in the best way. Your real laugh — not the polite one — is contagious.</p>
+        </div>
+        <div class="quality-card fade-in-up" style="--delay: 0.5s">
+          <div class="quality-icon">💪</div>
+          <h3>Strong</h3>
+          <p>Not just physically, but emotionally. You've survived every hard day so far. That's a 100% success rate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 5: PHOTO GALLERY ===== -->
+  <section class="section gallery-section">
+    <div class="container">
+      <h2 class="section-title fade-in-up">Moments Worth Remembering</h2>
+      <p class="section-subtitle fade-in-up">A collection of memories</p>
+      
+      <div class="photo-gallery" id="photoGallery">
+        <!-- Photos will be loaded by JS -->
+      </div>
+      
+      <div class="gallery-note fade-in-up">
+        <p>Every photo tells a story. Every smile captured is a moment of joy. These are just a few of the many beautiful moments.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 6: TIMELINE ===== -->
+  <section class="section timeline-section">
+    <div class="container">
+      <h2 class="section-title fade-in-up">26 Years of You</h2>
+      <p class="section-subtitle fade-in-up">A journey through time</p>
+      
+      <div class="timeline">
+        <div class="timeline-item fade-in-up" style="--delay: 0s">
+          <div class="timeline-marker">🌟</div>
+          <div class="timeline-content">
+            <h3>The Beginning</h3>
+            <p>April 28, 2000 — The day the world got a little brighter. You arrived, and nothing was ever the same.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item fade-in-up" style="--delay: 0.1s">
+          <div class="timeline-marker">🎓</div>
+          <div class="timeline-content">
+            <h3>Growing Up</h3>
+            <p>Through school, college, and all the challenges in between — you kept pushing forward, kept learning, kept growing.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item fade-in-up" style="--delay: 0.2s">
+          <div class="timeline-marker">💼</div>
+          <div class="timeline-content">
+            <h3>Chasing Dreams</h3>
+            <p>You didn't settle for ordinary. You went after what you wanted, even when it was scary, even when it was hard.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item fade-in-up" style="--delay: 0.3s">
+          <div class="timeline-marker">💔</div>
+          <div class="timeline-content">
+            <h3>The Hard Times</h3>
+            <p>There were moments that broke your heart. Times when you felt lost. But you didn't stay down. You got back up.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item fade-in-up" style="--delay: 0.4s">
+          <div class="timeline-marker">🌈</div>
+          <div class="timeline-content">
+            <h3>Finding Yourself</h3>
+            <p>Through it all, you discovered who you really are. Not who people wanted you to be, but who YOU are.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item fade-in-up" style="--delay: 0.5s">
+          <div class="timeline-marker">🎂</div>
+          <div class="timeline-content">
+            <h3>Today — 26</h3>
+            <p>Here you are. Stronger, wiser, more beautiful than ever. And this is just the beginning of your next chapter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 7: CAKE & WISH ===== -->
+  <section class="section cake-section">
+    <div class="container-center">
+      <h2 class="section-title fade-in-up">Make a Wish ✨</h2>
+      <p class="section-subtitle fade-in-up">Close your eyes, think of something beautiful</p>
+
+      <div class="cake-wrapper fade-in-up">
+        <div class="candles-row" id="candlesRow"></div>
+        <div class="cake">
+          <div class="cake-layer cake-top">
+            <div class="cake-decoration">🌸 26 🌸</div>
+          </div>
+          <div class="cake-layer cake-mid"></div>
+          <div class="cake-layer cake-bottom"></div>
+          <div class="cake-plate"></div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="blowBtn">🎂 Blow the Candles</button>
+      <p class="wish-message" id="wishMessage"></p>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 8: 26 REASONS ===== -->
+  <section class="section reasons-section">
+    <div class="container">
+      <h2 class="section-title fade-in-up">26 Reasons You're Amazing</h2>
+      <p class="section-subtitle fade-in-up">One for every beautiful year</p>
+      
+      <div class="reasons-grid" id="reasonsGrid">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 9: INTERACTIVE MEMORIES ===== -->
+  <section class="section memories-section">
+    <div class="container">
+      <h2 class="section-title fade-in-up">Things I Remember</h2>
+      <p class="section-subtitle fade-in-up">Little moments that meant everything</p>
+      
+      <div class="memories-carousel" id="memoriesCarousel">
+        <div class="memory-slide">
+          <div class="memory-icon">🌙</div>
+          <p>The way you stay up late chasing your dreams — that kind of dedication is rare and beautiful.</p>
+        </div>
+        <div class="memory-slide">
+          <div class="memory-icon">☕</div>
+          <p>Your morning energy (or complete lack of it) is honestly the most relatable thing about you.</p>
+        </div>
+        <div class="memory-slide">
+          <div class="memory-icon">🎵</div>
+          <p>The songs you love say everything about the depth of your soul. Music speaks to you differently.</p>
+        </div>
+        <div class="memory-slide">
+          <div class="memory-icon">📚</div>
+          <p>Your curiosity about the world, your hunger to learn and grow — it's genuinely inspiring.</p>
+        </div>
+        <div class="memory-slide">
+          <div class="memory-icon">🌺</div>
+          <p>The way you light up when you talk about things you're passionate about. That fire in your eyes.</p>
+        </div>
+        <div class="memory-slide">
+          <div class="memory-icon">💭</div>
+          <p>Your overthinking isn't a flaw — it's proof of how deeply you feel and care about everything.</p>
+        </div>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn">←</button>
+        <button class="carousel-btn" id="nextBtn">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 10: FORGIVENESS ===== -->
+  <section class="section forgiveness-section">
+    <div class="container">
+      <div class="forgiveness-card fade-in-up">
+        <div class="forgiveness-icon">🕊️</div>
+        <h2>A Moment of Honesty</h2>
+        <p>I know I've made mistakes. I know there are things I can't take back, words I can't unsay, moments I can't redo.</p>
+        <p>But if there's one thing I want you to know today, it's this:</p>
+        <p class="emphasis-text">You deserve to be happy. You deserve to be celebrated. You deserve to let go of anything that's weighing you down — including any hurt I've caused.</p>
+        <p>Forgiveness isn't about forgetting. It's about freeing yourself. And you deserve that freedom.</p>
+        <p>So today, I'm asking — not for me, but for you — to let yourself smile without guilt, laugh without reservation, and celebrate without holding back.</p>
+        <p class="final-apology">I'm truly sorry. And I genuinely hope you have the most beautiful year ahead. 🌸</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 11: WISHES FOR THE YEAR ===== -->
+  <section class="section wishes-section">
+    <div class="container">
+      <h2 class="section-title fade-in-up">Wishes for Your 26th Year</h2>
+      <p class="section-subtitle fade-in-up">May this year bring you everything you've been hoping for</p>
+      
+      <div class="wishes-grid">
+        <div class="wish-card fade-in-up" style="--delay: 0s">
+          <div class="wish-number">01</div>
+          <p>May you find peace in the chaos and clarity in the confusion.</p>
+        </div>
+        <div class="wish-card fade-in-up" style="--delay: 0.1s">
+          <div class="wish-number">02</div>
+          <p>May you achieve every goal you've been quietly working toward.</p>
+        </div>
+        <div class="wish-card fade-in-up" style="--delay: 0.2s">
+          <div class="wish-number">03</div>
+          <p>May you be surrounded by people who truly see you and love you for who you are.</p>
+        </div>
+        <div class="wish-card fade-in-up" style="--delay: 0.3s">
+          <div class="wish-number">04</div>
+          <p>May you laugh more than you cry, love more than you fear.</p>
+        </div>
+        <div class="wish-card fade-in-up" style="--delay: 0.4s">
+          <div class="wish-number">05</div>
+          <p>May you discover new passions and rediscover old joys.</p>
+        </div>
+        <div class="wish-card fade-in-up" style="--delay: 0.5s">
+          <div class="wish-number">06</div>
+          <p>May you be kinder to yourself than you've ever been before.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 12: VEDIKA'S LIGHT - CHARITY ===== -->
+  <section class="section charity-section">
+    <div class="container">
+      <div class="charity-content fade-in-up">
+        <div class="charity-icon">🕯️</div>
+        <h2 class="charity-title">The Light of Vedika Mishra</h2>
+        <p class="charity-intro">
+          Birthdays aren't just about celebrating ourselves. They're about recognizing the light we carry and sharing it with the world.
+        </p>
+        <p class="charity-text">
+          This year, let's not just celebrate you — let's celebrate the impact you can have on others. Let's bring light into the lives of people who deserve it but don't have the means to access it.
+        </p>
+        <div class="charity-quote">
+          <p>"The best way to find yourself is to lose yourself in the service of others."</p>
+          <span>— Mahatma Gandhi</span>
+        </div>
+        <p class="charity-text">
+          On your 26th birthday, let's make a difference together. Whether it's donating to a cause you care about, volunteering your time, or simply spreading kindness to someone who needs it — let's show the world the divine light that is Vedika Mishra.
+        </p>
+        <div class="charity-ideas">
+          <h3>Ways to Share Your Light:</h3>
+          <ul>
+            <li>💝 Donate to a charity supporting education for underprivileged children</li>
+            <li>🍽️ Sponsor meals for those in need</li>
+            <li>📚 Donate books to a local library or school</li>
+            <li>🌱 Plant trees in your name to give back to the planet</li>
+            <li>🤝 Volunteer at a local NGO or community center</li>
+            <li>💌 Write letters of encouragement to people going through tough times</li>
+          </ul>
+        </div>
+        <p class="charity-closing">
+          Your birthday is a celebration of your existence. And your existence has the power to change lives. Let's make this year about more than just you — let's make it about the legacy of kindness you leave behind.
+        </p>
+        <div class="charity-cta">
+          <p class="charity-cta-text">✨ Let your light shine, Vedika. The world needs it. ✨</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 13: FINAL CELEBRATION ===== -->
+  <section class="section final-section">
+    <div class="container-center">
+      <div class="final-card fade-in-up">
+        <div class="balloons-container">
+          <span class="balloon" style="--delay: 0s">🎈</span>
+          <span class="balloon" style="--delay: 0.2s">🎈</span>
+          <span class="balloon" style="--delay: 0.4s">🎈</span>
+          <span class="balloon" style="--delay: 0.6s">🎈</span>
+          <span class="balloon" style="--delay: 0.8s">🎈</span>
+        </div>
+        
+        <h2 class="final-title">Here's to 26</h2>
+        <p class="final-text">
+          May this year be filled with moments that take your breath away, people who make you feel seen, and experiences that remind you how extraordinary life can be.
+        </p>
+        <p class="final-text">
+          You are loved. You are valued. You are enough — exactly as you are.
+        </p>
+        <p class="final-wish">
+          Happy Birthday, Vedika. 🎂✨
+        </p>
+        
+        <button class="btn-celebrate" id="celebrateBtn">🎉 Celebrate!</button>
+        <div class="confetti-container" id="confettiContainer"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Music toggle -->
+  <button class="music-toggle" id="musicToggle" title="Toggle music">
+    <span class="music-icon">🎵</span>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
