@@ -86,35 +86,52 @@ const parallaxContainer = document.getElementById('parallaxContainer');
 const imagesFolder = 'images/';
 // Array of a rich selection of images from the directory
 const allImages = [
-  "0189f8b6-e8c2-426a-80d6-2ebadad5730c.JPG", "08a17a9c-5b56-4020-bdd1-91a900808f08.JPG",
-  "21844c1f-8249-474a-aff2-ed28e1006ace.JPG", "274aa410-92af-4b5e-86ca-297ac790cb9e.JPG",
-  "2ce97c33-71bd-4bfc-ac77-f754c75f78aa.JPG", "399d8af8-f766-4b6f-b82d-54fb90b6a71c.JPG",
-  "413d4bcf-103f-43cf-bdcb-f280f144db78.JPG", "436bd4a9-7eed-43a1-8e6f-cf742794d62c.JPG",
-  "4a77b92d-951a-4eb2-b593-b6aac7ef9a92.JPG", "4b161adc-d94c-4ce6-b1d1-45d4c586b730.JPG",
-  "4cc15f9b-30f8-4dac-acaf-a9e24ad1d752.JPG", "537efc20-1255-44d8-bd03-ddebe1171e1b.JPG",
-  "6350c719-4730-469f-86eb-6c115ea39f82.JPG", "64b24dba-359b-4bc5-92a9-1aaa6014d9b3.JPG",
-  "66431683-f6c3-46dc-8cb9-df22d0aad66f.JPG", "6f332d2e-9883-473d-8911-15c1aa47a0ae.JPG",
-  "71aaf7d9-4d1d-4fbd-a062-ba80988734ec.JPG", "7d7ef225-7949-4847-b5cf-3c37b555cf1c.JPG",
-  "80bc8888-c50b-4605-a28a-63159c6dd5f1.JPG", "8817e605-7040-4d61-9725-62b791b42c97.JPG",
-  "96204cb8-d0f4-4178-a011-9f3475ce9c00.JPG", "9f36900a-6f40-4e15-8846-115985f8cb50.JPG",
-  "F6BACE20-E545-4A7D-A121-CF02DB186255.JPG", "IMG_0136.HEIC", "IMG_0586.HEIC",
-  "IMG_0587.HEIC", "IMG_0743.HEIC", "IMG_0780.PNG", "IMG_0903.PNG",
-  "IMG_0965.HEIC", "IMG_0966.HEIC", "IMG_0968.HEIC", "IMG_0972.HEIC",
-  "IMG_0973.HEIC", "IMG_0976.HEIC", "IMG_0978.HEIC", "IMG_1311.HEIC",
-  "IMG_1312.HEIC", "IMG_1599.HEIC", "IMG_1600.HEIC", "IMG_1752.HEIC",
-  "IMG_1775.PNG", "IMG_1777.PNG", "IMG_1825.HEIC", "IMG_1856.PNG",
-  "IMG_1869.PNG", "IMG_1900.HEIC", "IMG_1926.HEIC", "IMG_1954.PNG",
-  "IMG_1960.PNG", "IMG_1961.PNG", "IMG_1962.PNG", "IMG_2024.PNG",
-  "IMG_2051.HEIC", "IMG_2053.HEIC", "IMG_2054.HEIC", "IMG_2132.HEIC",
-  "IMG_2134.HEIC", "IMG_2226.HEIC", "IMG_2300.HEIC", "IMG_3002.HEIC",
-  "IMG_3017.HEIC", "IMG_3287.PNG", "IMG_3381.HEIC", "IMG_3382.HEIC",
-  "IMG_3486.HEIC", "IMG_3487.HEIC", "IMG_3489.HEIC", "IMG_3493.HEIC",
-  "IMG_3517.HEIC", "IMG_3537.heic", "Screenshot 2024-10-16 at 12.03.07 AM.PNG",
-  "Screenshot 2024-10-24 at 11.27.50 PM.PNG", "Screenshot 2024-10-25 at 1.11.33 AM.PNG",
-  "aa7406b0-b49c-48e9-807e-e975f7e90d2d.JPG", "b2e11f42-f757-4a69-83bf-108d08be10aa.JPG",
-  "be00fc6b-f633-47f0-b3b7-38463199ac4c.JPG", "c81564ea-c0f0-402b-95cd-2ce5a6a2249d.JPG",
-  "da93167e-1a68-4847-970f-f87c5f38a212.JPG", "e32e1a77-2ac9-431b-87dd-2310f6a235ca.JPG",
-  "e3d6ed9b-8f88-438a-a510-1f98678d21c5.JPG", "ede10bac-34bf-4e2b-b59e-744cace260ce.JPG"
+  "0189f8b6-e8c2-426a-80d6-2ebadad5730c.JPG",
+  "08a17a9c-5b56-4020-bdd1-91a900808f08.JPG",
+  "21844c1f-8249-474a-aff2-ed28e1006ace.JPG",
+  "274aa410-92af-4b5e-86ca-297ac790cb9e.JPG",
+  "2ce97c33-71bd-4bfc-ac77-f754c75f78aa.JPG",
+  "399d8af8-f766-4b6f-b82d-54fb90b6a71c.JPG",
+  "413d4bcf-103f-43cf-bdcb-f280f144db78.JPG",
+  "436bd4a9-7eed-43a1-8e6f-cf742794d62c.JPG",
+  "4a77b92d-951a-4eb2-b593-b6aac7ef9a92.JPG",
+  "4b161adc-d94c-4ce6-b1d1-45d4c586b730.JPG",
+  "4cc15f9b-30f8-4dac-acaf-a9e24ad1d752.JPG",
+  "537efc20-1255-44d8-bd03-ddebe1171e1b.JPG",
+  "6350c719-4730-469f-86eb-6c115ea39f82.JPG",
+  "64b24dba-359b-4bc5-92a9-1aaa6014d9b3.JPG",
+  "66431683-f6c3-46dc-8cb9-df22d0aad66f.JPG",
+  "6f332d2e-9883-473d-8911-15c1aa47a0ae.JPG",
+  "71aaf7d9-4d1d-4fbd-a062-ba80988734ec.JPG",
+  "7d7ef225-7949-4847-b5cf-3c37b555cf1c.JPG",
+  "80bc8888-c50b-4605-a28a-63159c6dd5f1.JPG",
+  "8817e605-7040-4d61-9725-62b791b42c97.JPG",
+  "96204cb8-d0f4-4178-a011-9f3475ce9c00.JPG",
+  "9f36900a-6f40-4e15-8846-115985f8cb50.JPG",
+  "F6BACE20-E545-4A7D-A121-CF02DB186255.JPG",
+  "IMG_0780.PNG",
+  "IMG_0903.PNG",
+  "IMG_1775.PNG",
+  "IMG_1777.PNG",
+  "IMG_1856.PNG",
+  "IMG_1869.PNG",
+  "IMG_1954.PNG",
+  "IMG_1960.PNG",
+  "IMG_1961.PNG",
+  "IMG_1962.PNG",
+  "IMG_2024.PNG",
+  "IMG_3287.PNG",
+  "Screenshot 2024-10-16 at 12.03.07 AM.PNG",
+  "Screenshot 2024-10-24 at 11.27.50 PM.PNG",
+  "Screenshot 2024-10-25 at 1.11.33 AM.PNG",
+  "aa7406b0-b49c-48e9-807e-e975f7e90d2d.JPG",
+  "b2e11f42-f757-4a69-83bf-108d08be10aa.JPG",
+  "be00fc6b-f633-47f0-b3b7-38463199ac4c.JPG",
+  "c81564ea-c0f0-402b-95cd-2ce5a6a2249d.JPG",
+  "da93167e-1a68-4847-970f-f87c5f38a212.JPG",
+  "e32e1a77-2ac9-431b-87dd-2310f6a235ca.JPG",
+  "e3d6ed9b-8f88-438a-a510-1f98678d21c5.JPG",
+  "ede10bac-34bf-4e2b-b59e-744cace260ce.JPG"
 ];
 
 // Shuffle images for a dynamic feel
@@ -241,7 +258,7 @@ if (blowBtn) {
     if (!candlesLit) {
       // Relight
       for (let i = 0; i < NUM_CANDLES; i++) {
-        document.getElementById(`flame-${i}`).style.opacity = '1';
+        document.getElementById(`flame-${i}`).style.display = 'block';
       }
       candlesLit = true;
       blowBtn.textContent = '🎂 Blow the Candles';
@@ -252,7 +269,7 @@ if (blowBtn) {
     // Blow out one by one
     for (let i = 0; i < NUM_CANDLES; i++) {
       setTimeout(() => {
-        document.getElementById(`flame-${i}`).style.opacity = '0';
+        document.getElementById(`flame-${i}`).style.display = 'none';
         if (i === NUM_CANDLES - 1) {
           setTimeout(() => {
             wishText.textContent = '🌟 Your wish has been sent to the universe 🌟';
